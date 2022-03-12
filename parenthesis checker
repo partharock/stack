@@ -1,0 +1,27 @@
+on space on time
+  unordered_map<char,int> umap{ {'(',1},{'{',2},{'[',3},{')',-1},{'}',-2},{']',-3}  };
+    //Function to check if brackets are balanced or not.
+    bool ispar(string x)
+    {
+        stack<char> st;
+        int n=x.size();
+        for(int i=0;i<n;i++)
+        {
+            int test=umap[x[i]];
+            if(test==1 or test==2 or test==3 )
+            st.push(x[i]);
+            else
+            {
+                if(st.empty() or umap[st.top()] + test !=0)
+                return false;
+                else
+                st.pop();
+            }
+        }
+        
+        if(!st.empty())
+        return false;
+        
+        return true;
+        // Your code here
+    }

@@ -1,3 +1,38 @@
+
+using on time and on space
+ long long getMaxArea(long long arr[], int n)
+    {
+        int i=0;
+        stack<int> st;
+        long long ans=0;
+        long long area;
+        while(i<n)
+        {
+            if(st.empty() or arr[i]>=arr[st.top()] ) {
+                
+                st.push(i);
+                i++;
+            }
+            else
+            {
+                long long temp=arr[st.top()];
+                st.pop();
+                area= temp*( st.empty() ? i : i-st.top() -1  );
+                if(area>ans)
+                ans=area;
+            }
+        }
+        while(!st.empty())
+        {
+            long long temp=arr[st.top()];
+            st.pop();
+            area=temp*(st.empty() ? i : i-st.top() -1);
+            if(area>ans)
+                ans=area;
+        }
+        return ans;
+        // Your code here
+    }
 using o3n time and o2n extra space 
   void prev(vector<int> &prevs ,long long arr[],int n)
     {

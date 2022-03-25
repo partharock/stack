@@ -1,0 +1,57 @@
+
+best solution-> uses largest area histogram concept
+
+     int maxhist(vector<int> &arr,int n)
+    {
+        int ans=0;
+        int area=0;
+        int i=0;
+        stack<long long> st;
+        while(i<n)
+        {
+            if(st.empty() or (arr[i])>=(arr[st.top()]) )
+            {
+                st.push(i);
+                i++;
+            }
+            else
+            {
+                int temp=(arr[st.top()]);
+                st.pop();
+                area= temp*( st.empty() ? i : i-st.top() -1 );
+                if(area>ans)
+                    ans=area;
+            }
+        }
+        while(!st.empty())
+        {
+            int temp=(arr[st.top()]);
+            st.pop();
+            
+            area=temp*( st.empty() ? i : i -st.top() -1);
+            
+            if(area>ans)
+                ans=area;
+        }
+        return ans;
+    }
+
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int row=matrix.size();
+        int col=matrix[0].size();
+        vector<int> test(col,0);
+        int ans=0;
+           for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(matrix[i][j]!='0')
+                test[j]+=( matrix[i][j]-'0');
+                else
+                    test[j]=0;
+            }
+            ans=max(ans,maxhist(test,col));
+        }
+        return ans;
+    }
+};
